@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const baseURL = 'http://localhost:3500';
+export const baseURL = 'http://fts.homelinux.com:3500';
 export const axiosI = axios.create({
   baseURL: baseURL,
-  proxy: { host: 'fts.homelinux.com', port: 3500 },
+  proxy: { host: 'nestjs', port: 3500 },
 });
