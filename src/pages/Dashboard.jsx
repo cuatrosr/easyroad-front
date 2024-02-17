@@ -25,7 +25,7 @@ function Dashboard() {
           justifyContent: 'center',
           alignItems: 'center',
           height: '80%',
-          mt: '1.25rem',
+          mt: '1.7rem',
           flexShrink: 0,
         }}
       >
@@ -33,7 +33,7 @@ function Dashboard() {
           sx={{
             display: 'flex',
             backgroundColor: '#efefef',
-            height: '50%',
+            height: '55%',
             alignItems: 'center',
             justifyContent: 'center',
             alignSelf: 'stretch',
@@ -42,6 +42,8 @@ function Dashboard() {
           }}
         >
           <Bar
+            width={'100vw'}
+            height={'50vh'}
             data={{
               labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
               datasets: [
@@ -75,14 +77,16 @@ function Dashboard() {
             display: 'flex',
             alignItems: 'center',
             backgroundColor: '#efefef',
-            height: '50%',
+            height: '55%',
+            width: '100%',
             justifyContent: 'space-evenly',
             alignSelf: 'stretch',
             flex: '1 1 0',
           }}
         >
           <Bar
-            width={'400px'}
+            width={'80vw'}
+            height={'50vh'}
             data={{
               labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
               datasets: [
@@ -111,6 +115,8 @@ function Dashboard() {
             }}
           />
           <Bar
+            width={'50vw'}
+            height={'50vh'}
             data={{
               labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
               datasets: [
