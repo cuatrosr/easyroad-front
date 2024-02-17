@@ -1,0 +1,33 @@
+version: '3.8'
+
+name: easyroad
+
+services:
+  vite:
+    container_name: vite
+    build:
+      target: production
+      context: .
+      args:
+        - PORT="5173"
+    ports:
+      - "5173:5173"
+    external_links:
+      - nestjs
+    networks:
+      - networkEasyroad
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "512m"
+        reservations:
+          cpus: "0.25"
+          memory: "256m"
+
+networks:
+  networkEasyroad:
+    name: networkEasyroad
+
+volumes:
+  node_modules:

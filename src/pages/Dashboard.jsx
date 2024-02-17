@@ -76,12 +76,40 @@ function Dashboard() {
             alignItems: 'center',
             backgroundColor: '#efefef',
             height: '50%',
-            justifyContent: 'center',
+            justifyContent: 'space-evenly',
             alignSelf: 'stretch',
             flex: '1 1 0',
-            gap: '2.5 rem',
           }}
         >
+          <Bar
+            width={'400px'}
+            data={{
+              labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+              datasets: [
+                {
+                  label: '# of Votes',
+                  data: [200, 300, 400, 500, 600, 700],
+                },
+                { label: 'Quantity', data: [12, 19, 3, 5, 2, 3] },
+              ],
+            }}
+            options={{
+              maintainAspectRatio: true,
+              responsive: true,
+              plugins: {
+                legend: {
+                  display: true,
+                  position: 'top',
+                },
+                title: {
+                  display: true,
+                  text: 'Chart.js Bar Chart',
+                  align: 'center',
+                  color: 'black',
+                },
+              },
+            }}
+          />
           <Bar
             data={{
               labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],

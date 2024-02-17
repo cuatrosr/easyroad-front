@@ -16,4 +16,14 @@ export default defineConfig({
       exclude: '',
     }),
   ],
+  preview: {
+    port: 5173,
+    strictPort: true,
+   },
+  server: {
+    host: true,
+    strictPort: true,
+    port: 5173,
+    origin: "http://0.0.0.0:5173",
+  },
 });
