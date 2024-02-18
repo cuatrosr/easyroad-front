@@ -26,15 +26,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 function Dashboard() {
-  // Etiquetas personalizadas para el gráfico de donut
-  const doughnutLabels = [
-    'Label 1',
-    'Label 2',
-    'Label 3',
-    'Label 4',
-    'Label 5',
-  ];
-
+  let dataPie = [200, 20, 400];
+  const working =
+    (dataPie[1] / dataPie.reduce((total, valor) => total + valor, 0)) * 100;
+  const alert =
+    (dataPie[2] / dataPie.reduce((total, valor) => total + valor, 0)) * 100;
+  const disconnected =
+    (dataPie[0] / dataPie.reduce((total, valor) => total + valor, 0)) * 100;
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <DrawerHeader />
@@ -100,7 +98,7 @@ function Dashboard() {
                   },
                   title: {
                     display: true,
-                    text: 'Chart.js Bar Chart',
+                    text: '',
                     align: 'center',
                     color: 'black',
                   },
@@ -146,7 +144,7 @@ function Dashboard() {
                   },
                   title: {
                     display: true,
-                    text: 'Chart.js Bar Chart',
+                    text: '',
                     align: 'center',
                     color: 'black',
                   },
@@ -205,155 +203,136 @@ function Dashboard() {
                 display: 'flex',
                 marginTop: '0.5rem',
                 flexDirection: 'column',
-                height: '80%',
+                height: '65%',
               }}
             >
               <Doughnut
-                sx={{
-                  width: '50px',
-                  height: '50px',
-                  marginLeft: '5rem',
-                }}
                 data={{
-                  labels: doughnutLabels,
                   datasets: [
                     {
-                      data: [200, 300, 400],
+                      data: dataPie,
                       backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(156, 156, 156)', // Disconnected
+                        'rgba(105, 75, 219)', // Working
+                        'rgba(255, 119, 119)', // Alert
                       ],
                       borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
+                        'rgba(156, 156, 156, 1)',
+                        'rgba(105, 75, 219, 1)',
+                        'rgba(255, 119, 119, 1)',
                       ],
-                      borderWidth: 1,
                     },
                   ],
                 }}
                 options={{
-                  maintainAspectRatio: true,
+                  cutout: '75%', // Ajusta el tamaño del agujero (grosor) cambiando este valor
+                  elements: {},
                   responsive: true,
-                  plugins: {
-                    legend: {
-                      display: true,
-                      position: 'top',
-                      labels: {
-                        color: 'black',
-                      },
-                    },
-                    title: {
-                      display: true,
-                      text: 'Chart.js Doughnut Chart',
-                      align: 'center',
-                      color: 'black',
-                    },
-                  },
+                  maintainAspectRatio: false,
                 }}
               />
             </Box>
+
             <Box
               sx={{
-                marginTop: '0.5rem',
+                marginTop: '1rem',
                 display: 'flex',
                 flexDirection: 'row',
-                
-                height: '50%',
+                justifyContent: 'space-evenly',
+                height: '10%',
                 width: '100%',
                 alignItems: 'center',
               }}
             >
               <div
                 style={{
-                  marginLeft: '4.5rem',
                   position: 'relative',
-                  width: '20px',
-                  height: '20px', // Aumenté la altura para asegurar que el texto se muestre completamente
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  width: 'fit-content',
+                  fontSize: '0.5em', // Establecer el tamaño de la fuente a la mitad
                 }}
               >
                 <div
                   style={{
-                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                    width: '100%',
-                    height: '100%',
+                    marginRight: '100px',
+                    backgroundColor: 'rgba(105, 75, 219)',
+                    width: '15px',
+                    height: '15px',
                     position: 'absolute',
                     zIndex: 1,
                   }}
                 ></div>
                 <div
                   style={{
-                    position: 'relative',
-                    zIndex: 4,
+                    fontWeight: 'bold',
                   }}
                 >
                   Working
                 </div>
+                <div>{`${working.toFixed(2)}%`}</div>
               </div>
-
-
-
 
               <div
                 style={{
-                  marginLeft: '4.5rem',
                   position: 'relative',
-                  width: '20px',
-                  height: '20px', // Aumenté la altura para asegurar que el texto se muestre completamente
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  width: 'fit-content',
+                  fontSize: '0.5em', 
                 }}
               >
                 <div
                   style={{
-                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                    width: '100%',
-                    height: '100%',
+                    marginRight: '60px',
+                    backgroundColor: 'rgba(255, 119, 119)',
+                    width: '15px',
+                    height: '15px',
                     position: 'absolute',
                     zIndex: 1,
                   }}
                 ></div>
                 <div
                   style={{
-                    position: 'relative',
-                    zIndex: 4,
+                    fontWeight: 'bold',
                   }}
                 >
                   Alert
                 </div>
+                <div>{`${alert.toFixed(2)}%`}</div>
               </div>
-
-
-
-
 
               <div
                 style={{
-                  marginLeft: '4.5rem',
                   position: 'relative',
-                  width: '20px',
-                  height: '20px', // Aumenté la altura para asegurar que el texto se muestre completamente
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  width: 'fit-content',
+                  fontSize: '0.5em',
                 }}
               >
                 <div
                   style={{
-                    backgroundColor: 'rgba(255, 206, 86, 0.6)',
-                    width: '100%',
-                    height: '100%',
+                    marginRight: '150px',
+                    backgroundColor: 'rgba(156, 156, 156)',
+                    width: '15px',
+                    height: '15px',
                     position: 'absolute',
                     zIndex: 1,
                   }}
                 ></div>
                 <div
                   style={{
-                    position: 'relative',
-                    zIndex: 4,
+                    fontWeight: 'bold',
                   }}
                 >
                   Disconnected
                 </div>
+                <div>{`${disconnected.toFixed(2)}%`}</div>
               </div>
-            
-             
             </Box>
           </Box>
         </Box>
