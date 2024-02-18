@@ -198,12 +198,34 @@ function Dashboard() {
               overflow: 'hidden',
             }}
           >
+            <Box >
+              <div
+                style={{
+                  marginLeft:'-10rem',
+                  display: 'flex',
+                  fontSize: '0.7rem',
+                  fontWeight: 'bold',
+                }}
+              >
+                Postes Status
+              </div>
+              <div
+                style={{
+                  marginLeft:'-10rem',
+                  display: 'flex',
+                  fontSize: '0.7rem',
+                  
+                }}
+              >
+                Now
+              </div>
+            </Box>
+
             <Box
               sx={{
                 display: 'flex',
-                marginTop: '0.5rem',
                 flexDirection: 'column',
-                height: '65%',
+                height: '60%',
               }}
             >
               <Doughnut
@@ -251,12 +273,12 @@ function Dashboard() {
                   flexDirection: 'column',
                   alignItems: 'center',
                   width: 'fit-content',
-                  fontSize: '0.5em', // Establecer el tamaño de la fuente a la mitad
+                  fontSize: '0.5em',
                 }}
               >
                 <div
                   style={{
-                    marginRight: '100px',
+                    marginLeft: '-60px',
                     backgroundColor: 'rgba(105, 75, 219)',
                     width: '15px',
                     height: '15px',
@@ -267,6 +289,7 @@ function Dashboard() {
                 <div
                   style={{
                     fontWeight: 'bold',
+                    marginLeft: '5px',
                   }}
                 >
                   Working
@@ -281,12 +304,12 @@ function Dashboard() {
                   flexDirection: 'column',
                   alignItems: 'center',
                   width: 'fit-content',
-                  fontSize: '0.5em', 
+                  fontSize: '0.5em',
                 }}
               >
                 <div
                   style={{
-                    marginRight: '60px',
+                    marginLeft: '-40px',
                     backgroundColor: 'rgba(255, 119, 119)',
                     width: '15px',
                     height: '15px',
@@ -297,6 +320,7 @@ function Dashboard() {
                 <div
                   style={{
                     fontWeight: 'bold',
+                    marginLeft: '5px',
                   }}
                 >
                   Alert
@@ -316,7 +340,7 @@ function Dashboard() {
               >
                 <div
                   style={{
-                    marginRight: '150px',
+                    marginLeft: '-85px',
                     backgroundColor: 'rgba(156, 156, 156)',
                     width: '15px',
                     height: '15px',
@@ -327,6 +351,7 @@ function Dashboard() {
                 <div
                   style={{
                     fontWeight: 'bold',
+                    marginLeft: '5px',
                   }}
                 >
                   Disconnected
