@@ -1,4 +1,5 @@
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
+import Card from '../components/card-proyects';
 import {
   CategoryScale,
   LinearScale,
@@ -9,7 +10,7 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js';
-import { Box, styled,Grid  } from '@mui/material';
+import { Box, styled, Grid } from '@mui/material';
 Chart.register(
   CategoryScale,
   LinearScale,
@@ -239,48 +240,76 @@ function Dashboard() {
           </Box>
 
           <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              backgroundColor: '#efefef',
-              height: '95%',
-              justifyContent: 'center',
-              alignSelf: 'stretch',
-              flex: '1 1 0',
-              gap: '2.5 rem',
-              borderRadius: 8,
-              boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
-              overflow: 'hidden',
-            }}
-          >
-            <Box
-              sx={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: '0.2rem',
-                width: '100%',
-                height: '80%',
-                marginLeft: '1.5rem',
-              }}
-            >
-              <Grid
-                gap={2} // Ajusta el espacio entre las celdas según tus necesidades
-                columns={[2, '1fr 1fr', '1fr 1fr 1fr 1fr']} // Configura el número de columnas para diferentes tamaños de pantalla
-              >
-                {/* Contenido de la primera posición */}
-                <div>Contenido 1</div>
-
-                {/* Contenido de la segunda posición */}
-                <div>Contenido 2</div>
-
-                {/* Contenido de la tercera posición */}
-                <div>Contenido 3</div>
-
-                {/* Contenido de la cuarta posición */}
-                <div>Contenido 4</div>
-              </Grid>
-            </Box>
-          </Box>
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0)', // Fondo completamente transparente
+        height: '95%',
+        justifyContent: 'center',
+        alignSelf: 'stretch',
+        flex: '1 1 0',
+        borderRadius: 8,
+        overflow: 'hidden',
+      }}
+    >
+      <Box
+        sx={{
+          backgroundColor: 'rgba(0, 0, 0, 0)', // Fondo completamente transparente
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gridTemplateRows: '1fr 1fr',
+          gap: '0.5rem',
+          height: '100%',
+          width: '90%',
+        }}
+      >
+        <Box
+          sx={{
+            width: '100%',
+            height: '60%', // Ajusta este porcentaje según tus necesidades
+          }}
+        >
+          <Card  title="Título "
+        textBelow="25"
+        imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/768px-LEGO_logo.svg.png"
+        backgroundColor="rgb(79, 151, 191)"/>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <Card title="Título "
+        textBelow="25"
+        imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/768px-LEGO_logo.svg.png"
+        backgroundColor="rgb(218, 114, 88)"/>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <Card title="Título "
+        textBelow="25"
+        imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/768px-LEGO_logo.svg.png" 
+        backgroundColor="rgb(218, 114, 88)"/>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <Card title="Título "
+        textBelow="25"
+        imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/768px-LEGO_logo.svg.png"
+        backgroundColor="rgb(79, 151, 191)" />
+        
+        </Box>
+      </Box>
+    </Box>
         </Box>
 
         <Box
