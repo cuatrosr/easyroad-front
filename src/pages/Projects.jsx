@@ -53,7 +53,11 @@ function Projects() {
   const renderSkeletons = () => {
     return [1, 2, 3, 4].map((skeleton) => (
       <Grid item xs={12} sm={6} md={4} lg={3} key={skeleton}>
-        <Skeleton variant="rectangular" maxwidth={'17.5rem'} height={'13.75rem'} />
+        <Skeleton
+          variant="rectangular"
+          maxwidth={'17.5rem'}
+          height={'13.75rem'}
+        />
       </Grid>
     ));
   };

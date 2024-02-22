@@ -51,7 +51,7 @@ export default function NavBar() {
         <Avatar
           src={Logo}
           alt="Logo"
-          sx={{ width: 200, height: 50, borderRadius: 0, objectFit: 'cover' }}
+          sx={{ width: '20vw', height: '5vh', borderRadius: 0, objectFit: 'cover' }}
         />
       </Toolbar>
     </AppBar>

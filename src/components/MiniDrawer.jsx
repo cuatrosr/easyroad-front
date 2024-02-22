@@ -76,20 +76,17 @@ export default function MiniDrawer() {
     dispatch(saveOpen(false));
   };
   const handleChange = (text) => {
-    dispatch(saveCurrent(text));
+    navigate(text);
   };
   useEffect(() => {
-    if (
-      location.pathname === '/' ||
-      (location.pathname === '/projects' && current === undefined)
-    ) {
+    if (location.pathname === '/' || location.pathname === '/projects') {
       dispatch(saveCurrent('projects'));
-    } else if (location.pathname === '/dashboard' && current === undefined) {
+    } else if (location.pathname === '/dashboard') {
       dispatch(saveCurrent('dashboard'));
+    } else if (location.pathname.includes('projects')) {
+      dispatch(saveCurrent('projects'));
     }
-    navigate(current);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [current]);
+  });
   return (
     <Drawer
       variant="permanent"
