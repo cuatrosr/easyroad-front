@@ -1,4 +1,5 @@
-import { Bar, Doughnut } from 'react-chartjs-2';
+import { Bar, Doughnut, Line } from 'react-chartjs-2';
+import Card from '../components/card-proyects';
 import {
   CategoryScale,
   LinearScale,
@@ -6,15 +7,18 @@ import {
   DoughnutController,
   ArcElement,
   Chart,
+  PointElement,
+  LineElement,
 } from 'chart.js';
-import { Box, styled } from '@mui/material';
-
+import { Box, styled, Grid } from '@mui/material';
 Chart.register(
   CategoryScale,
   LinearScale,
   BarElement,
   DoughnutController,
   ArcElement,
+  PointElement,
+  LineElement,
 );
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -26,6 +30,59 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 function Dashboard() {
+  const lineData = {
+    labels: [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+    ],
+    datasets: [
+      {
+        label: 'Datos de la Línea 1',
+        data: [1, 2, 1, 4, 5, 6, 7, 8],
+        borderColor: 'rgba(105, 75, 219, 1)',
+        backgroundColor: 'rgba(69, 177, 223, 0.5)',
+        fill: false,
+      },
+      {
+        label: 'Datos de la Línea 2',
+        data: [8, 7, 6, 5, 4, 3, 2, 1],
+        borderColor: 'rgba(255, 119, 119, 1)',
+        backgroundColor: 'rgba(99, 201, 122, 0.5)',
+        fill: false,
+      },
+    ],
+  };
+
+  const lineOptions = {
+    responsive: true,
+    scales: {
+      x: {
+        type: 'category',
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago'],
+      },
+      y: {
+        beginAtZero: true,
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Gráfico de Líneas Múltiples Chart.js',
+        align: 'center',
+        color: 'black',
+      },
+    },
+  };
   let dataPie = [200, 20, 400];
   const working =
     (dataPie[1] / dataPie.reduce((total, valor) => total + valor, 0)) * 100;
@@ -74,84 +131,185 @@ function Dashboard() {
               borderRadius: 8,
               boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
               overflow: 'hidden',
+              flexDirection: 'column',
             }}
           >
-            {/* Contenido del primer gráfico de barras */}
-            <Bar
-              data={{
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [
-                  {
-                    label: '# of Votes',
-                    data: [200, 300, 400, 500, 600, 700],
-                  },
-                  { label: 'Quantity', data: [12, 19, 3, 5, 2, 3] },
-                ],
+            <Box
+              sx={{
+                ml: -55,
               }}
-              options={{
-                maintainAspectRatio: true,
-                responsive: true,
-                plugins: {
-                  legend: {
-                    display: true,
-                    position: 'top',
-                  },
-                  title: {
-                    display: true,
-                    text: '',
-                    align: 'center',
-                    color: 'black',
-                  },
-                },
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  fontSize: '1rem',
+                  fontWeight: 'bold',
+                }}
+              >
+                Postes Historico
+              </div>
+            </Box>
+
+            <Box
+              sx={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '0.2rem',
+                width: '100%',
+                height: '80%',
+                marginLeft: '1.5rem',
               }}
-            />
+            >
+              <Line
+                data={lineData}
+                options={lineOptions}
+                height="50%"
+                width="150%"
+              />
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                height: '10%',
+                width: '100%',
+                alignItems: 'center',
+              }}
+            >
+              <div
+                style={{
+                  position: 'relative',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  width: 'fit-content',
+                  fontSize: '0.5em',
+                }}
+              >
+                <div
+                  style={{
+                    marginLeft: '-60px',
+                    backgroundColor: 'rgba(105, 75, 219, 1)',
+                    width: '15px',
+                    height: '15px',
+                    position: 'absolute',
+                    zIndex: 1,
+                  }}
+                ></div>
+                <div
+                  style={{
+                    fontWeight: 'bold',
+                    marginLeft: '5px',
+                  }}
+                >
+                  Working
+                </div>
+              </div>
+
+              <div
+                style={{
+                  position: 'relative',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  width: 'fit-content',
+                  fontSize: '0.5em',
+                }}
+              >
+                <div
+                  style={{
+                    marginLeft: '-40px',
+                    backgroundColor: 'rgba(255, 119, 119, 1)',
+                    width: '15px',
+                    height: '15px',
+                    position: 'absolute',
+                    zIndex: 1,
+                  }}
+                ></div>
+                <div
+                  style={{
+                    fontWeight: 'bold',
+                    marginLeft: '5px',
+                  }}
+                >
+                  Alert
+                </div>
+              </div>
+            </Box>
           </Box>
 
           <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              backgroundColor: '#efefef',
-              height: '95%',
-              justifyContent: 'center',
-              alignSelf: 'stretch',
-              flex: '1 1 0',
-              gap: '2.5 rem',
-              borderRadius: 8,
-              boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
-              overflow: 'hidden',
-            }}
-          >
-            {/* Contenido del segundo gráfico de barras */}
-            <Bar
-              data={{
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [
-                  {
-                    label: '# of Votes',
-                    data: [200, 300, 400, 500, 600, 700],
-                  },
-                  { label: 'Quantity', data: [12, 19, 3, 5, 2, 3] },
-                ],
-              }}
-              options={{
-                maintainAspectRatio: true,
-                responsive: true,
-                plugins: {
-                  legend: {
-                    display: true,
-                    position: 'top',
-                  },
-                  title: {
-                    display: true,
-                    text: '',
-                    align: 'center',
-                    color: 'black',
-                  },
-                },
-              }}
-            />
-          </Box>
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0)', // Fondo completamente transparente
+        height: '95%',
+        justifyContent: 'center',
+        alignSelf: 'stretch',
+        flex: '1 1 0',
+        borderRadius: 8,
+        overflow: 'hidden',
+      }}
+    >
+      <Box
+        sx={{
+          backgroundColor: 'rgba(0, 0, 0, 0)', // Fondo completamente transparente
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gridTemplateRows: '1fr 1fr',
+          gap: '0.5rem',
+          height: '100%',
+          width: '90%',
+        }}
+      >
+        <Box
+          sx={{
+            width: '100%',
+            height: '60%', // Ajusta este porcentaje según tus necesidades
+          }}
+        >
+          <Card  title="Título "
+        textBelow="25"
+        imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/768px-LEGO_logo.svg.png"
+        backgroundColor="rgb(79, 151, 191)"/>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <Card title="Título "
+        textBelow="25"
+        imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/768px-LEGO_logo.svg.png"
+        backgroundColor="rgb(218, 114, 88)"/>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <Card title="Título "
+        textBelow="25"
+        imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/768px-LEGO_logo.svg.png" 
+        backgroundColor="rgb(218, 114, 88)"/>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <Card title="Título "
+        textBelow="25"
+        imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/768px-LEGO_logo.svg.png"
+        backgroundColor="rgb(79, 151, 191)" />
+        
+        </Box>
+      </Box>
+    </Box>
         </Box>
 
         <Box
@@ -172,7 +330,9 @@ function Dashboard() {
               alignItems: 'center',
               backgroundColor: '#efefef',
               height: '95%',
+              width: '100%',
               justifyContent: 'center',
+              flexDirection: 'column',
               alignSelf: 'stretch',
               flex: '1 1 0',
               gap: '2.5rem',
@@ -180,8 +340,61 @@ function Dashboard() {
               boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
               overflow: 'hidden',
             }}
-          ></Box>
-
+          >
+            <Box
+              sx={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '0.2rem',
+                width: '100%',
+                height: '80%',
+                marginLeft: '2.5rem',
+              }}
+            >
+              <Bar
+                height="50%"
+                width="180%"
+                data={{
+                  labels: [
+                    'Red',
+                    'Blue',
+                    'Yellow',
+                    'Green',
+                    'Purple',
+                    'Orange',
+                  ],
+                  datasets: [
+                    {
+                      label: '# of Votes',
+                      data: [200, 300, 400, 500, 600, 700],
+                      backgroundColor: 'rgba(105, 75, 219, 1)', // Cambia los valores RGB según tus necesidades
+                    },
+                    {
+                      label: 'Quantity',
+                      data: [120, 190, 300, 500, 200, 300],
+                      backgroundColor: 'rgba(255, 119, 119, 1)', // Cambia los valores RGB según tus necesidades
+                    },
+                  ],
+                }}
+                options={{
+                  maintainAspectRatio: true,
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      display: true,
+                      position: 'top',
+                    },
+                    title: {
+                      display: true,
+                      text: '',
+                      align: 'center',
+                      color: 'black',
+                    },
+                  },
+                }}
+              />
+            </Box>
+          </Box>
           <Box
             sx={{
               display: 'flex',
@@ -198,10 +411,10 @@ function Dashboard() {
               overflow: 'hidden',
             }}
           >
-            <Box >
+            <Box>
               <div
                 style={{
-                  marginLeft:'-10rem',
+                  marginLeft: '-10rem',
                   display: 'flex',
                   fontSize: '0.7rem',
                   fontWeight: 'bold',
@@ -211,10 +424,9 @@ function Dashboard() {
               </div>
               <div
                 style={{
-                  marginLeft:'-10rem',
+                  marginLeft: '-10rem',
                   display: 'flex',
                   fontSize: '0.7rem',
-                  
                 }}
               >
                 Now
