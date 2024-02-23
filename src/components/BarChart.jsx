@@ -1,28 +1,55 @@
-import PropTypes from 'prop-types';
 import { Bar } from 'react-chartjs-2';
+import { Chart, BarElement, CategoryScale } from 'chart.js';
 
-export const BarChart = ({ chartData }) => {
+Chart.register(BarElement, CategoryScale);
+
+const BarChart = () => {
   return (
-    <div className="chart-container">
-      <h2 style={{ textAlign: 'center' }}>Bar Chart</h2>
-      <Bar
-        data={chartData}
-        options={{
-          plugins: {
-            title: {
-              display: true,
-              text: 'Users Gained between 2016-2020',
-            },
-            legend: {
-              display: false,
+    <Bar
+      data={{
+        labels: [
+          'Project 1',
+          'Project 2',
+          'Project 3',
+          'Project 4',
+          'Project 5',
+          'Project 6',
+        ],
+        datasets: [
+          {
+            label: 'Working',
+            data: [200, 300, 400, 500, 600, 700],
+            backgroundColor: 'rgba(105, 75, 219, 1)',
+          },
+          {
+            label: 'Alert',
+            data: [120, 190, 300, 500, 200, 300],
+            backgroundColor: 'rgba(255, 119, 119, 1)',
+          },
+        ],
+      }}
+      options={{
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+          tooltip: {
+            enabled: true,
+          },
+          legend: {
+            display: true,
+            position: 'bottom',
+          },
+          title: {
+            display: true,
+            text: 'Estado Actual de Proyectos',
+            font: {
+              size: 20,
             },
           },
-        }}
-      />
-    </div>
+        },
+      }}
+    />
   );
 };
 
-BarChart.propTypes = {
-  chartData: PropTypes.string,
-};
+export default BarChart;

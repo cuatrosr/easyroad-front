@@ -79,7 +79,10 @@ export default function MiniDrawer() {
     navigate(text);
   };
   useEffect(() => {
-    if (location.pathname === '/' || location.pathname === '/projects') {
+    if (location.pathname === '/') {
+      dispatch(saveCurrent('projects'));
+      navigate('projects');
+    } else if (location.pathname === '/projects') {
       dispatch(saveCurrent('projects'));
     } else if (location.pathname === '/dashboard') {
       dispatch(saveCurrent('dashboard'));
