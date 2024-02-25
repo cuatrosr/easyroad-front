@@ -1,10 +1,11 @@
 import NavBar from './NavBar';
 import NotFound from './NotFound';
-import ActionCard from './ActionCard';
 import BarChart from './BarChart';
 import LineChart from './LineChart';
 import MediaCard from './MediaCard';
+import ActionCard from './ActionCard';
 import MiniDrawer from './MiniDrawer';
+import PrimaryCard from './PrimaryCard';
 import DoughnutChart from './DoughnutChart';
 
 export {
@@ -15,5 +16,6 @@ export {
   MediaCard,
   ActionCard,
   MiniDrawer,
+  PrimaryCard,
   DoughnutChart,
 };

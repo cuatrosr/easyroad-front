@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { axiosI } from '../configs/axiosConfig';
 import { baseURL } from '../configs/axiosConfig';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,6 +16,10 @@ import {
 } from '@mui/material';
 
 export default function ActionCard(props) {
+  const navigate = useNavigate();
+  const handleCardClick = () => {
+    navigate(props.id);
+  };
   const handleClick = () => {
     Swal.fire({
       title: '¿Estas seguro?',
@@ -46,7 +51,7 @@ export default function ActionCard(props) {
   };
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+      <CardActionArea onClick={handleCardClick}>
         <CardMedia
           component="img"
           height="140"

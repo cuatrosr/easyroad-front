@@ -1,9 +1,16 @@
-import Badge from '@mui/material/Badge';
 import { useState, useEffect } from 'react';
+import { PrimaryCard } from '../components';
 import { useParams } from 'react-router-dom';
-import MailIcon from '@mui/icons-material/Mail';
 import { axiosI, baseURL } from '../configs/axiosConfig';
-import { Avatar, Box, Grid, Typography, styled } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Avatar,
+  Button,
+  styled,
+  Skeleton,
+  Typography,
+} from '@mui/material';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -17,22 +24,50 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function Project() {
   const { projectId } = useParams();
   const [project, setProject] = useState();
-  const getProject = async () => {
+  const [poles, setPoles] = useState([]);
+  const getInfo = async () => {
     try {
-      const response = await axiosI.get(`/projects/${projectId}`);
-      setProject(response.data);
+      const project = await axiosI.get(`/projects/${projectId}`);
+      setProject(project.data);
+      const poles = await axiosI.get(`/poles/project/${projectId}`);
+      setPoles(poles.data);
     } catch (e) {
       console.log(e);
     }
   };
+  const renderPoles = () => {
+    return poles.map((pole) => {
+      return (
+        <Grid item xs={5} sm={4} md={3} lg={2} key={pole._id}>
+          <PrimaryCard serial={pole.serial} />
+        </Grid>
+      );
+    });
+  };
+  const renderSkeletons = () => {
+    return [1, 2, 3, 4].map((skeleton) => (
+      <Grid item xs={5} sm={4} md={3} lg={2} key={skeleton}>
+        <Skeleton variant="rectangular" width={'9rem'} height={'9rem'} />
+      </Grid>
+    ));
+  };
   useEffect(() => {
-    getProject();
-  });
+    getInfo();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <DrawerHeader />
       {project && (
-        <>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            width: '90vw',
+            flexShrink: 0,
+          }}
+        >
           <Box
             sx={{
               display: 'flex',
@@ -63,29 +98,36 @@ function Project() {
                   objectFit: 'cover',
                 }}
               />
-              <Typography paragraph>{project.description}</Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'start',
+                  justifyContent: 'center',
+                  alignSelf: 'stretch',
+                }}
+              >
+                <Typography paragraph>{project.description}</Typography>
+                <Button variant="outlined" size="small">
+                  Gestionar Postes
+                </Button>
+              </Box>
             </Box>
           </Box>
           <Box
             sx={{
               display: 'flex',
+              padding: '0.625rem 1.563rem',
               flexDirection: 'column',
-              justifyContent: 'center',
               alignItems: 'center',
-              gap: '10px',
-              flex: '1 0 0',
               alignSelf: 'stretch',
             }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6} md={4} lg={3} key={project._id}>
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon color="action" />
-                </Badge>
-              </Grid>
+              {poles.length !== 0 ? renderPoles() : renderSkeletons()}
             </Grid>
           </Box>
-        </>
+        </Box>
       )}
     </Box>
   );
