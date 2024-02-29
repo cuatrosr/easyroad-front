@@ -1,14 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {
   toolsBarSlice,
+  poleModalSlice,
   miniDrawerSlice,
-  projectModalSlice,
 } from './slices/toolsBarSlice';
 
 export const store = configureStore({
   reducer: {
     toolsBar: toolsBarSlice.reducer,
-    projectModal: projectModalSlice.reducer,
+    poleModal: poleModalSlice.reducer,
     miniDrawer: miniDrawerSlice.reducer,
   },
 });

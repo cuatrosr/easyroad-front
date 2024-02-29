@@ -1,7 +1,9 @@
+import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { PrimaryCard } from '../components';
 import { useParams } from 'react-router-dom';
+import { PoleModal, PrimaryCard } from '../components';
 import { axiosI, baseURL } from '../configs/axiosConfig';
+import { saveCurrentPole } from '../redux/slices/toolsBarSlice';
 import {
   Box,
   Grid,
@@ -22,6 +24,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 function Project() {
+  const dispatch = useDispatch();
+  const [openPoleModal, setOpenPoleModal] = useState(false);
   const { projectId } = useParams();
   const [project, setProject] = useState();
   const [poles, setPoles] = useState([]);
@@ -51,13 +55,25 @@ function Project() {
       </Grid>
     ));
   };
+  const handleClose = () => {
+    setOpenPoleModal(false);
+  };
+  const handleOpen = () => {
+    dispatch(saveCurrentPole('list'));
+    setOpenPoleModal(true);
+  };
   useEffect(() => {
     getInfo();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <DrawerHeader />
+      <PoleModal
+        open={openPoleModal}
+        parentFunction={getInfo}
+        handleClose={handleClose}
+      />
       {project && (
         <Box
           sx={{
@@ -108,7 +124,7 @@ function Project() {
                 }}
               >
                 <Typography paragraph>{project.description}</Typography>
-                <Button variant="outlined" size="small">
+                <Button onClick={handleOpen} variant="outlined" size="small">
                   Gestionar Postes
                 </Button>
               </Box>

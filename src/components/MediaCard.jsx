@@ -43,7 +43,7 @@ export default function MediaCard({ title, icon, textBelow, backgroundColor }) {
 
 MediaCard.propTypes = {
   title: PropTypes.string,
-  icon: PropTypes.component,
+  icon: PropTypes.func,
   textBelow: PropTypes.string,
   backgroundColor: PropTypes.string,
 };

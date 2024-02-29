@@ -1,9 +1,6 @@
-import { useDispatch } from 'react-redux';
-import { ActionCard } from '../components';
 import { useState, useEffect } from 'react';
 import { axiosI } from '../configs/axiosConfig';
-import ProjectModal from '../components/ProjectModal';
-import { saveOpenProjectModal } from '../redux/slices/toolsBarSlice';
+import { ActionCard, ProjectModal } from '../components';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import {
   Box,
@@ -24,8 +21,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 function Projects() {
-  const dispatch = useDispatch();
-  dispatch(saveOpenProjectModal(false));
+  const [openProjectModal, setOpenProjectModal] = useState(false);
   const [projects, setProjects] = useState([]);
   const getProjects = async () => {
     try {
@@ -61,8 +57,11 @@ function Projects() {
       </Grid>
     ));
   };
+  const handleClose = () => {
+    setOpenProjectModal(false);
+  };
   const handleOpen = () => {
-    dispatch(saveOpenProjectModal(true));
+    setOpenProjectModal(true);
   };
   useEffect(() => {
     getProjects();
@@ -70,7 +69,11 @@ function Projects() {
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <DrawerHeader />
-      <ProjectModal parentFunction={getProjects} />
+      <ProjectModal
+        open={openProjectModal}
+        handleClose={handleClose}
+        parentFunction={getProjects}
+      />
       <Box
         sx={{
           display: 'flex',

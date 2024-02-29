@@ -12,11 +12,11 @@ export const toolsBarSlice = createSlice({
   },
 });
 
-export const projectModalSlice = createSlice({
-  name: 'projectModal',
+export const poleModalSlice = createSlice({
+  name: 'poleModal',
   initialState,
   reducers: {
-    saveOpenProjectModal: (state, action) => {
+    saveCurrentPole: (state, action) => {
       state.value = action.payload;
     },
   },
@@ -33,5 +33,5 @@ export const miniDrawerSlice = createSlice({
 });
 
 export const { saveOpen } = toolsBarSlice.actions;
+export const { saveCurrentPole } = poleModalSlice.actions;
 export const { saveCurrent } = miniDrawerSlice.actions;
-export const { saveOpenProjectModal } = projectModalSlice.actions;

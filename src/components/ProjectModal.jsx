@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { axiosI } from '../configs/axiosConfig';
 import SaveIcon from '@mui/icons-material/Save';
 import PersonIcon from '@mui/icons-material/Person';
-import { useSelector, useDispatch } from 'react-redux';
-import { saveOpenProjectModal } from '../redux/slices/toolsBarSlice';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import {
@@ -51,12 +49,11 @@ const style = {
 };
 
 export default function ProjectModal(props) {
-  const open = useSelector((state) => state.projectModal.value);
+  const { open, handleClose, parentFunction } = props;
   const [selectedImage, setSelectedImage] = useState(null);
   const [inputFile, setInputFile] = useState(null);
   const [inputName, setInputName] = useState(null);
   const [inputDescription, setInputDescription] = useState(null);
-  const dispatch = useDispatch();
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -68,12 +65,12 @@ export default function ProjectModal(props) {
       reader.readAsDataURL(file);
     }
   };
-  const handleClose = () => {
+  const handleCloseModal = () => {
     setInputName(null);
     setInputDescription(null);
     setSelectedImage(null);
-    dispatch(saveOpenProjectModal(false));
-    props.parentFunction();
+    handleClose();
+    parentFunction();
   };
   const handleSubmit = () => {
     if (inputName && inputDescription && inputFile) {
@@ -94,7 +91,7 @@ export default function ProjectModal(props) {
             text: 'Tu proyecto fue guardado.',
             icon: 'success',
           });
-          handleClose();
+          handleCloseModal();
         }
       });
     } else {
@@ -107,7 +104,7 @@ export default function ProjectModal(props) {
     }
   };
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleCloseModal}>
       <Box sx={style}>
         <Box
           sx={{
@@ -266,5 +263,7 @@ export default function ProjectModal(props) {
 }
 
 ProjectModal.propTypes = {
+  open: PropTypes.bool,
+  handleClose: PropTypes.func,
   parentFunction: PropTypes.func,
 };

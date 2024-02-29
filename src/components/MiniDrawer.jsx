@@ -66,12 +66,12 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MiniDrawer() {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const location = useLocation();
-  const theme = useTheme();
+  const navigate = useNavigate();
   const open = useSelector((state) => state.toolsBar.value);
   const current = useSelector((state) => state.miniDrawer.value);
-  const navigate = useNavigate();
   const handleDrawerClose = () => {
     dispatch(saveOpen(false));
   };
