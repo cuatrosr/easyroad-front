@@ -1,4 +1,4 @@
-import Alert from '../assets/alert.svg?react';
+import Info from '../assets/info.svg?react';
 import { Box, Typography, TextField, Button, styled, SvgIcon } from '@mui/material';
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -52,7 +52,7 @@ export default function ListPole() {
                 variant="h6"
                 component="h2"
               >
-                Lista de Postes
+                Nuevo Poste
               </Typography>
             </Box>
             <Box
@@ -164,7 +164,7 @@ export default function ListPole() {
               background: 'rgba(156, 207, 243, 0.7)',
             }}
           >
-            <SvgIcon sx={{ fontSize: '4rem' }} component={Alert} inheritViewBox />
+            <SvgIcon sx={{ fontSize: '4rem' }} component={Info} inheritViewBox />
             <Typography
               variant="h6"
               component="h2"

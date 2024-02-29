@@ -1,6 +1,7 @@
 import NavBar from './NavBar';
 import AddPole from './AddPole';
 import PoleBar from './PoleBar';
+import PoleCard from './PoleCard';
 import ListPole from './ListPole';
 import NotFound from './NotFound';
 import BarChart from './BarChart';
@@ -17,6 +18,7 @@ export {
   NavBar,
   AddPole,
   PoleBar,
+  PoleCard,
   NotFound,
   BarChart,
   ListPole,
