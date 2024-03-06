@@ -1,11 +1,15 @@
+import Swal from 'sweetalert2';
+import { useEffect, useState } from 'react';
 import Info from '../assets/info.svg?react';
+import { useParams } from 'react-router-dom';
+import { axiosI } from '../configs/axiosConfig';
 import {
   Box,
-  Typography,
-  TextField,
   Button,
   styled,
   SvgIcon,
+  TextField,
+  Typography,
 } from '@mui/material';
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -16,7 +20,62 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export default function ListPole() {
+export default function AddPole() {
+  const { projectId } = useParams();
+  const [project, setProject] = useState();
+  const [formData, setFormData] = useState({
+    serial: '',
+    fabricante: '',
+    modelo: '',
+  });
+  const getInfo = async () => {
+    try {
+      const project = await axiosI.get(`/projects/${projectId}`);
+      setProject(project.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  const createPole = async () => {
+    if (
+      formData.serial !== '' &&
+      formData.fabricante !== '' &&
+      formData.modelo !== ''
+    ) {
+      Swal.fire({
+        title: 'Oops!',
+        text: 'Debes llenar todos los campos!',
+        icon: 'error',
+      });
+    } else {
+      axiosI.post('/poles', formData).then((response) => {
+        if (response.status !== 201) {
+          Swal.fire({
+            title: 'Oops!',
+            text: response.data.message || 'Algo salio mal!',
+            icon: 'error',
+          });
+        } else {
+          Swal.fire({
+            title: 'Guardado!',
+            text: 'El poste fue guardado.',
+            icon: 'success',
+          });
+        }
+      });
+    }
+  };
+  useEffect(() => {
+    getInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Box component={'div'}>
       <Box
@@ -77,7 +136,7 @@ export default function ListPole() {
                 variant="body2"
                 component="p"
               >
-                Lista de Postes
+                {project && project.name}
               </Typography>
             </Box>
             <Typography
@@ -132,6 +191,7 @@ export default function ListPole() {
                 variant="outlined"
                 fullWidth
                 style={{ width: '100%' }}
+                onChange={handleChange}
                 color={'secondary'}
               />
               <TextField
@@ -141,6 +201,7 @@ export default function ListPole() {
                 variant="outlined"
                 fullWidth
                 style={{ width: '100%' }}
+                onChange={handleChange}
                 color={'secondary'}
               />
               <TextField
@@ -150,10 +211,16 @@ export default function ListPole() {
                 variant="outlined"
                 fullWidth
                 style={{ width: '100%' }}
+                onChange={handleChange}
                 color={'secondary'}
               />
             </Box>
-            <ColorButton fullWidth variant="contained" disableElevation>
+            <ColorButton
+              onClick={createPole}
+              fullWidth
+              variant="contained"
+              disableElevation
+            >
               Register
             </ColorButton>
           </Box>

@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { axiosI } from '../configs/axiosConfig';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid, GridPagination } from '@mui/x-data-grid';
 import { Box, IconButton, Typography } from '@mui/material';
@@ -27,16 +29,52 @@ const columns = [
 ];
 
 const rows = [
-  { id: '1', serial: 'Clifford', fabricante: 'Ferrara', modelo: 44, estado: 'Ativo' },
-  { id: '2', serial: 'Frances', fabricante: 'Rossini', modelo: 36, estado: 'Ativo' },
-  { id: '3', serial: 'Roxie', fabricante: 'Harvey', modelo: 65, estado: 'Ativo' },
+  {
+    id: '1',
+    serial: 'Clifford',
+    fabricante: 'Ferrara',
+    modelo: 44,
+    estado: 'Ativo',
+  },
+  {
+    id: '2',
+    serial: 'Frances',
+    fabricante: 'Rossini',
+    modelo: 36,
+    estado: 'Ativo',
+  },
+  {
+    id: '3',
+    serial: 'Roxie',
+    fabricante: 'Harvey',
+    modelo: 65,
+    estado: 'Ativo',
+  },
 ];
 
 export default function ListPole() {
   const [selectedRows, setSelectedRows] = useState([]);
+  const { projectId } = useParams();
   const handleDelete = () => {
     console.log(selectedRows);
   };
+  const [project, setProject] = useState();
+  const [poles, setPoles] = useState([]);
+  const getInfo = async () => {
+    try {
+      const project = await axiosI.get(`/projects/${projectId}`);
+      setProject(project.data);
+      let poles = await axiosI.get(`/poles/project/${projectId}`);
+      poles = poles.data.map((pole) => {return {id: pole._id, serial: pole.serial, fabricante: pole.fabricante, modelo: pole.modelo, estado: pole.state}});
+      setPoles(poles);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getInfo();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Box component={'div'}>
       <Box
@@ -97,7 +135,7 @@ export default function ListPole() {
                 variant="body2"
                 component="p"
               >
-                Lista de Postes
+                {project && project.name}
               </Typography>
             </Box>
             <Typography
@@ -130,7 +168,7 @@ export default function ListPole() {
               }}
             >
               <DataGrid
-                rows={rows}
+                rows={poles}
                 columns={columns}
                 columnHeaderHeight={33}
                 initialState={{
