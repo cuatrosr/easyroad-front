@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { PoleCard, PoleModal, PrimaryCard } from '../components';
-import { axiosI, baseURL } from '../configs/axiosConfig';
+import { axiosI } from '../configs/axiosConfig';
 import { saveCurrentPole } from '../redux/slices/toolsBarSlice';
+import { PoleCard, PoleModal, PrimaryCard } from '../components';
 import {
   Box,
   Grid,
@@ -26,38 +26,31 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const columns = [
   {
-    field: 'id',
-    headerName: 'ID',
-    width: 70,
+    field: 'serial',
+    headerName: 'Serial',
+    minWidth: 300,
   },
   {
-    field: 'firstName',
-    headerName: 'First name',
-    minWidth: 130,
+    field: 'fabricante',
+    headerName: 'Fabricante',
+    minWidth: 300,
   },
   {
-    field: 'lastName',
-    headerName: 'Last name',
-    minWidth: 130,
+    field: 'modelo',
+    headerName: 'Modelo',
+    minWidth: 280,
   },
   {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    minWidth: 90,
+    field: 'estado',
+    headerName: 'Estado',
+    minWidth: 280,
   },
 ];
 
 const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: 18 },
-  { id: 6, lastName: 'Melisandre', firstName: 'null', age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  { id: '1', serial: 'Clifford', fabricante: 'Ferrara', modelo: 44, estado: 'Ativo' },
+  { id: '2', serial: 'Frances', fabricante: 'Rossini', modelo: 36, estado: 'Ativo' },
+  { id: '3', serial: 'Roxie', fabricante: 'Harvey', modelo: 65, estado: 'Ativo' },
 ];
 
 function Project() {
@@ -144,7 +137,7 @@ function Project() {
                 }}
               >
                 <Avatar
-                  src={`${baseURL}/public/${project.image}`}
+                  src={`${project.image}`}
                   alt="Logo"
                   sx={{
                     width: '9.188rem',

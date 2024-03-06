@@ -1,5 +1,12 @@
 import Info from '../assets/info.svg?react';
-import { Box, Typography, TextField, Button, styled, SvgIcon } from '@mui/material';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  styled,
+  SvgIcon,
+} from '@mui/material';
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText('#AA5D4A'),
@@ -93,6 +100,7 @@ export default function ListPole() {
         >
           <Box
             sx={{
+              width: '70%',
               display: 'flex',
               padding: '0.938rem',
               flexDirection: 'column',
@@ -119,16 +127,6 @@ export default function ListPole() {
             >
               <TextField
                 size="small"
-                name={'id'}
-                label={'ID'}
-                variant="outlined"
-                fullWidth
-                style={{ width: '100%' }}
-                color={'secondary'}
-                start
-              />
-              <TextField
-                size="small"
                 name={'serial'}
                 label={'Serial'}
                 variant="outlined"
@@ -136,9 +134,27 @@ export default function ListPole() {
                 style={{ width: '100%' }}
                 color={'secondary'}
               />
+              <TextField
+                size="small"
+                name={'fabricante'}
+                label={'Fabricante'}
+                variant="outlined"
+                fullWidth
+                style={{ width: '100%' }}
+                color={'secondary'}
+              />
+              <TextField
+                size="small"
+                name={'modelo'}
+                label={'Modelo'}
+                variant="outlined"
+                fullWidth
+                style={{ width: '100%' }}
+                color={'secondary'}
+              />
             </Box>
             <ColorButton fullWidth variant="contained" disableElevation>
-              Contained
+              Register
             </ColorButton>
           </Box>
         </Box>
@@ -164,7 +180,11 @@ export default function ListPole() {
               background: 'rgba(156, 207, 243, 0.7)',
             }}
           >
-            <SvgIcon sx={{ fontSize: '4rem' }} component={Info} inheritViewBox />
+            <SvgIcon
+              sx={{ fontSize: '4rem' }}
+              component={Info}
+              inheritViewBox
+            />
             <Typography
               variant="h6"
               component="h2"

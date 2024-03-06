@@ -2,7 +2,6 @@ import Swal from 'sweetalert2';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { axiosI } from '../configs/axiosConfig';
-import { baseURL } from '../configs/axiosConfig';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
   Card,
@@ -55,7 +54,7 @@ export default function ActionCard(props) {
         <CardMedia
           component="img"
           height="140"
-          src={`${baseURL}/public/${props.img}`}
+          src={`${props.img}`}
           sx={{ objectFit: 'fill' }}
         />
         <CardContent>
