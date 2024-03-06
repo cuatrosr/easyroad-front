@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: ftsfront 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ftsfront
+  template:
+    metadata:
+      labels:
+        app: ftsfront 
+    spec:
+      containers:
+        - name: ftsfront 
+          image: crtwitterauto.azurecr.io/ftsfront
+          ports:
+          - containerPort: 5173
