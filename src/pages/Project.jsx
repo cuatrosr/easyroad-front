@@ -26,31 +26,25 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const columns = [
   {
+    field: 'fecha',
+    headerName: 'Fecha',
+    minWidth: 300,
+  },
+  {
     field: 'serial',
     headerName: 'Serial',
     minWidth: 300,
   },
   {
-    field: 'fabricante',
-    headerName: 'Fabricante',
-    minWidth: 300,
-  },
-  {
-    field: 'modelo',
-    headerName: 'Modelo',
+    field: 'tipo_evento',
+    headerName: 'Tipo Evento',
     minWidth: 280,
   },
   {
-    field: 'estado',
-    headerName: 'Estado',
+    field: 'estado_evento',
+    headerName: 'Estado Evento',
     minWidth: 280,
   },
-];
-
-const rows = [
-  { id: '1', serial: 'Clifford', fabricante: 'Ferrara', modelo: 44, estado: 'Ativo' },
-  { id: '2', serial: 'Frances', fabricante: 'Rossini', modelo: 36, estado: 'Ativo' },
-  { id: '3', serial: 'Roxie', fabricante: 'Harvey', modelo: 65, estado: 'Ativo' },
 ];
 
 function Project() {
@@ -59,12 +53,16 @@ function Project() {
   const { projectId } = useParams();
   const [project, setProject] = useState();
   const [poles, setPoles] = useState([]);
+  const [events, setEvents] = useState([]);
   const getInfo = async () => {
     try {
       const project = await axiosI.get(`/projects/${projectId}`);
       setProject(project.data);
       const poles = await axiosI.get(`/poles/project/${projectId}`);
       setPoles(poles.data);
+      let events = await axiosI.get('/events');
+      events = events.data.map((event) => {return {id: event._id, fecha: event.created, serial: event.serial_dispositivo, tipo_evento: event.tipo_evento, estado_evento: event.estado_evento}});
+      setEvents(events);
     } catch (e) {
       console.log(e);
     }
@@ -73,7 +71,7 @@ function Project() {
     return poles.map((pole) => {
       return (
         <Grid item xs={5} sm={4} md={3} lg={2} key={pole._id}>
-          <PrimaryCard serial={pole.serial} />
+          <PrimaryCard serial={pole.serial} state={pole.state} />
         </Grid>
       );
     });
@@ -93,7 +91,9 @@ function Project() {
     setOpenPoleModal(true);
   };
   useEffect(() => {
-    getInfo();
+    setInterval(() => {
+      getInfo();
+    }, 5000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -170,20 +170,26 @@ function Project() {
                   alignSelf: 'stretch',
                 }}
               >
-                <PoleCard title="Alert" number={poles.length} color="#D30033" />
+                <PoleCard
+                  title="Alert"
+                  number={poles.filter((pole) => pole.state === 'alert').length}
+                  color="#D30033"
+                />
                 <PoleCard
                   title="Working"
-                  number={poles.length}
+                  number={poles.filter((pole) => pole.state === 'ok').length}
                   color="#00D32F"
                 />
                 <PoleCard
                   title="Disconnected"
-                  number={poles.length}
+                  number={
+                    poles.filter((pole) => pole.state === 'disconnected').length
+                  }
                   color="#9C9C9C"
                 />
                 <PoleCard
                   title="Alert Count"
-                  number={poles.length}
+                  number={poles.filter((pole) => pole.state === 'alert').length}
                   color="#D6B200"
                 />
               </Box>
@@ -224,7 +230,7 @@ function Project() {
               }}
             >
               <DataGrid
-                rows={rows}
+                rows={events}
                 columns={columns}
                 columnHeaderHeight={33}
                 initialState={{
@@ -253,11 +259,11 @@ function Project() {
                     color: 'var(--on-primary, rgba(255, 255, 255, 1))',
                   },
                 }}
-                loading={rows.length === 0}
+                loading={events.length === 0}
                 rowHeight={33}
                 pageSizeOptions={[3]}
                 disableRowSelectionOnClick
-                {...rows}
+                {...events}
               />
             </Box>
           </Box>

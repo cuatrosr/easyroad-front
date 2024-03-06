@@ -24,13 +24,33 @@ export default function PrimaryCard(props) {
             alignSelf: 'stretch',
           }}
         >
-          <Badge badgeContent={4} color="secondary">
-            <SvgIcon
-              sx={{ fontSize: '5rem' }}
-              component={Pole}
-              inheritViewBox
-            />
-          </Badge>
+          {(props.state === 'disconnected' && (
+            <Badge badgeContent={''} color="error">
+              <SvgIcon
+                sx={{ fontSize: '5rem' }}
+                component={Pole}
+                inheritViewBox
+              />
+            </Badge>
+          )) ||
+            (props.state === 'ok' && (
+              <Badge badgeContent={''} color="success">
+                <SvgIcon
+                  sx={{ fontSize: '5rem' }}
+                  component={Pole}
+                  inheritViewBox
+                />
+              </Badge>
+            )) ||
+            (props.state === 'alert' && (
+              <Badge badgeContent={''} color="warning">
+                <SvgIcon
+                  sx={{ fontSize: '5rem' }}
+                  component={Pole}
+                  inheritViewBox
+                />
+              </Badge>
+            ))}
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Typography
@@ -48,4 +68,5 @@ export default function PrimaryCard(props) {
 
 PrimaryCard.propTypes = {
   serial: PropTypes.string,
+  state: PropTypes.string,
 };
