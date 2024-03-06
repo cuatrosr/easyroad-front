@@ -28,30 +28,6 @@ const columns = [
   },
 ];
 
-const rows = [
-  {
-    id: '1',
-    serial: 'Clifford',
-    fabricante: 'Ferrara',
-    modelo: 44,
-    estado: 'Ativo',
-  },
-  {
-    id: '2',
-    serial: 'Frances',
-    fabricante: 'Rossini',
-    modelo: 36,
-    estado: 'Ativo',
-  },
-  {
-    id: '3',
-    serial: 'Roxie',
-    fabricante: 'Harvey',
-    modelo: 65,
-    estado: 'Ativo',
-  },
-];
-
 export default function ListPole() {
   const [selectedRows, setSelectedRows] = useState([]);
   const { projectId } = useParams();
@@ -197,15 +173,15 @@ export default function ListPole() {
                     color: 'var(--on-primary, rgba(255, 255, 255, 1))',
                   },
                 }}
-                loading={rows.length === 0}
+                loading={poles.length === 0}
                 rowHeight={33}
                 pageSizeOptions={[3]}
                 checkboxSelection
                 disableRowSelectionOnClick
                 onRowSelectionModelChange={(ids) => {
                   const selectedIDs = new Set(ids);
-                  const selectedRows = rows.filter((row) =>
-                    selectedIDs.has(row.id),
+                  const selectedRows = poles.filter((pole) =>
+                    selectedIDs.has(pole.id),
                   );
                   setSelectedRows(selectedRows);
                 }}
@@ -246,7 +222,7 @@ export default function ListPole() {
                     );
                   },
                 }}
-                {...rows}
+                {...poles}
               />
             </Box>
           </Box>

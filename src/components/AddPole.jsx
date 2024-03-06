@@ -45,9 +45,9 @@ export default function AddPole() {
   };
   const createPole = async () => {
     if (
-      formData.serial !== '' &&
-      formData.fabricante !== '' &&
-      formData.modelo !== ''
+      formData.serial !== undefined &&
+      formData.fabricante !== undefined &&
+      formData.modelo !== undefined
     ) {
       Swal.fire({
         title: 'Oops!',
