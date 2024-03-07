@@ -61,7 +61,22 @@ function Project() {
       const poles = await axiosI.get(`/poles/project/${projectId}`);
       setPoles(poles.data);
       let events = await axiosI.get('/events');
-      events = events.data.map((event) => {return {id: event._id, fecha: event.created, serial: event.serial_dispositivo, tipo_evento: event.tipo_evento, estado_evento: event.estado_evento}});
+      events = events.data
+        .filter(
+          (event) =>
+            poles.data.filter(
+              (pole) => pole.serial === event.serial_dispositivo,
+            ).length > 0,
+        )
+        .map((event) => {
+          return {
+            id: event._id,
+            fecha: event.created,
+            serial: event.serial_dispositivo,
+            tipo_evento: event.tipo_evento,
+            estado_evento: event.estado_evento,
+          };
+        });
       setEvents(events);
     } catch (e) {
       console.log(e);
@@ -234,8 +249,9 @@ function Project() {
                 columns={columns}
                 columnHeaderHeight={33}
                 initialState={{
+                  sorting: { sortModel: [{ field: 'fecha', sort: 'desc' }] },
                   pagination: {
-                    paginationModel: { page: 0, pageSize: 3 },
+                    paginationModel: { page: 0, pageSize: 6 },
                   },
                 }}
                 sx={{
@@ -261,7 +277,7 @@ function Project() {
                 }}
                 loading={events.length === 0}
                 rowHeight={33}
-                pageSizeOptions={[3]}
+                pageSizeOptions={[6, 12]}
                 disableRowSelectionOnClick
                 {...events}
               />

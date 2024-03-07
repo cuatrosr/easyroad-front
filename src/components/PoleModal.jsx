@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Modal, styled } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Outlet } from 'react-router-dom';
 import { saveCurrentPole } from '../redux/slices/toolsBarSlice';
+import { useNavigate, Outlet, useOutletContext } from 'react-router-dom';
 
 const style = {
   position: 'absolute',
@@ -31,7 +31,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-export default function ProjectModal(props) {
+export default function PoleModal(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const current = useSelector((state) => state.poleModal.value);
@@ -52,13 +52,18 @@ export default function ProjectModal(props) {
       <Box sx={style}>
         <PoleBar handleSetCurrent={handleSetCurrent} current={current} />
         <DrawerHeader />
-        <Outlet />
+        <Outlet context={{ handleCloseModal }} />
       </Box>
     </Modal>
   );
 }
 
-ProjectModal.propTypes = {
+// eslint-disable-next-line react-refresh/only-export-components
+export function useClose() {
+  return useOutletContext();
+}
+
+PoleModal.propTypes = {
   open: PropTypes.bool,
   handleClose: PropTypes.func,
   parentFunction: PropTypes.func,

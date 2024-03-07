@@ -11,6 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useClose } from './PoleModal';
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText('#AA5D4A'),
@@ -21,6 +22,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function AddPole() {
+  const { handleCloseModal } = useClose();
   const { projectId } = useParams();
   const [project, setProject] = useState();
   const [formData, setFormData] = useState({
@@ -45,9 +47,9 @@ export default function AddPole() {
   };
   const createPole = async () => {
     if (
-      formData.serial !== undefined &&
-      formData.fabricante !== undefined &&
-      formData.modelo !== undefined
+      formData.serial === '' ||
+      formData.fabricante === '' ||
+      formData.modelo === ''
     ) {
       Swal.fire({
         title: 'Oops!',
@@ -55,21 +57,29 @@ export default function AddPole() {
         icon: 'error',
       });
     } else {
-      axiosI.post('/poles', formData).then((response) => {
-        if (response.status !== 201) {
-          Swal.fire({
-            title: 'Oops!',
-            text: response.data.message || 'Algo salio mal!',
-            icon: 'error',
-          });
-        } else {
-          Swal.fire({
-            title: 'Guardado!',
-            text: 'El poste fue guardado.',
-            icon: 'success',
-          });
-        }
+      axiosI
+        .post('/poles', { ...formData, project: projectId })
+        .then((response) => {
+          if (response.status !== 201) {
+            Swal.fire({
+              title: 'Oops!',
+              text: response.data.message || 'Algo salio mal!',
+              icon: 'error',
+            });
+          } else {
+            Swal.fire({
+              title: 'Guardado!',
+              text: 'El poste fue guardado.',
+              icon: 'success',
+            });
+          }
+        });
+      setFormData({
+        serial: '',
+        fabricante: '',
+        modelo: '',
       });
+      handleCloseModal();
     }
   };
   useEffect(() => {
