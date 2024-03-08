@@ -5,6 +5,10 @@ import Typography from '@mui/material/Typography';
 import { Badge, Box, CardActionArea, SvgIcon } from '@mui/material';
 
 export default function PrimaryCard(props) {
+  const { state, serial, handleOpen } = props;
+  const handleCardClick = () => {
+    handleOpen(serial);
+  };
   return (
     <Card
       sx={{
@@ -14,7 +18,7 @@ export default function PrimaryCard(props) {
         boxShadow: 'none',
       }}
     >
-      <CardActionArea>
+      <CardActionArea onClick={handleCardClick}>
         <Box
           sx={{
             display: 'flex',
@@ -24,7 +28,7 @@ export default function PrimaryCard(props) {
             alignSelf: 'stretch',
           }}
         >
-          {(props.state === 'disconnected' && (
+          {(state === 'disconnected' && (
             <Badge badgeContent={''} color="error">
               <SvgIcon
                 sx={{ fontSize: '5rem' }}
@@ -33,7 +37,7 @@ export default function PrimaryCard(props) {
               />
             </Badge>
           )) ||
-            (props.state === 'ok' && (
+            (state === 'ok' && (
               <Badge badgeContent={''} color="success">
                 <SvgIcon
                   sx={{ fontSize: '5rem' }}
@@ -42,7 +46,7 @@ export default function PrimaryCard(props) {
                 />
               </Badge>
             )) ||
-            (props.state === 'alert' && (
+            (state === 'alert' && (
               <Badge badgeContent={''} color="warning">
                 <SvgIcon
                   sx={{ fontSize: '5rem' }}
@@ -58,7 +62,7 @@ export default function PrimaryCard(props) {
             variant="body2"
             sx={{ color: '#262A31', fontSize: '1rem', fontWeight: 'bold' }}
           >
-            {props.serial}
+            {serial}
           </Typography>
         </Box>
       </CardActionArea>
@@ -67,6 +71,7 @@ export default function PrimaryCard(props) {
 }
 
 PrimaryCard.propTypes = {
+  handleOpen: PropTypes.func,
   serial: PropTypes.string,
   state: PropTypes.string,
 };

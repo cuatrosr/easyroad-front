@@ -3,6 +3,7 @@ import {
   toolsBarSlice,
   poleModalSlice,
   miniDrawerSlice,
+  actionPoleModalSlice,
 } from './slices/toolsBarSlice';
 
 export const store = configureStore({
@@ -10,5 +11,6 @@ export const store = configureStore({
     toolsBar: toolsBarSlice.reducer,
     poleModal: poleModalSlice.reducer,
     miniDrawer: miniDrawerSlice.reducer,
+    actionPoleModal: actionPoleModalSlice.reducer,
   },
 });

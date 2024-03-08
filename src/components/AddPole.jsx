@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2';
+import { useClose } from './PoleModal';
 import { useEffect, useState } from 'react';
 import Info from '../assets/info.svg?react';
 import { useParams } from 'react-router-dom';
@@ -11,7 +12,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useClose } from './PoleModal';
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText('#AA5D4A'),

@@ -22,6 +22,16 @@ export const poleModalSlice = createSlice({
   },
 });
 
+export const actionPoleModalSlice = createSlice({
+  name: 'actionPoleModal',
+  initialState,
+  reducers: {
+    saveCurrentActionPole: (state, action) => {
+      state.value = action.payload;
+    },
+  },
+});
+
 export const miniDrawerSlice = createSlice({
   name: 'miniDrawer',
   initialState,
@@ -33,5 +43,6 @@ export const miniDrawerSlice = createSlice({
 });
 
 export const { saveOpen } = toolsBarSlice.actions;
-export const { saveCurrentPole } = poleModalSlice.actions;
 export const { saveCurrent } = miniDrawerSlice.actions;
+export const { saveCurrentPole } = poleModalSlice.actions;
+export const { saveCurrentActionPole } = actionPoleModalSlice.actions;

@@ -1,4 +1,4 @@
-import { ListPole, AddPole } from '../components';
+import { ListPole, AddPole, DetailsPole, ActionsPole } from '../components';
 import { createBrowserRouter } from 'react-router-dom';
 import { Root, Error, Projects, Dashboard, Project } from '../pages';
 
@@ -23,6 +23,14 @@ const router = createBrowserRouter([
           {
             path: 'add',
             element: <AddPole />,
+          },
+          {
+            path: ':poleSerial/details',
+            element: <DetailsPole />,
+          },
+          {
+            path: ':poleSerial/actions',
+            element: <ActionsPole />,
           },
         ],
       },

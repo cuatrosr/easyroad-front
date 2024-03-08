@@ -1,9 +1,18 @@
 import { useDispatch } from 'react-redux';
+import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { axiosI } from '../configs/axiosConfig';
-import { saveCurrentPole } from '../redux/slices/toolsBarSlice';
-import { PoleCard, PoleModal, PrimaryCard } from '../components';
+import { useParams, useNavigate } from 'react-router-dom';
+import {
+  saveCurrentActionPole,
+  saveCurrentPole,
+} from '../redux/slices/toolsBarSlice';
+import {
+  PoleCard,
+  PoleModal,
+  PrimaryCard,
+  ActionPoleModal,
+} from '../components';
 import {
   Box,
   Grid,
@@ -13,7 +22,6 @@ import {
   Skeleton,
   Typography,
 } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -49,7 +57,10 @@ const columns = [
 
 function Project() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [poleSerial, setPoleSerial] = useState('');
   const [openPoleModal, setOpenPoleModal] = useState(false);
+  const [openActionPoleModal, setOpenActionPoleModal] = useState(false);
   const { projectId } = useParams();
   const [project, setProject] = useState();
   const [poles, setPoles] = useState([]);
@@ -86,7 +97,11 @@ function Project() {
     return poles.map((pole) => {
       return (
         <Grid item xs={5} sm={4} md={3} lg={2} key={pole._id}>
-          <PrimaryCard serial={pole.serial} state={pole.state} />
+          <PrimaryCard
+            handleOpen={handleActionOpen}
+            serial={pole.serial}
+            state={pole.state}
+          />
         </Grid>
       );
     });
@@ -100,6 +115,16 @@ function Project() {
   };
   const handleClose = () => {
     setOpenPoleModal(false);
+    navigate(`/projects/${projectId}`);
+  };
+  const handleActionOpen = (serial) => {
+    dispatch(saveCurrentActionPole('details'));
+    setPoleSerial(serial);
+    setOpenActionPoleModal(true);
+  };
+  const handleActionClose = () => {
+    setOpenActionPoleModal(false);
+    navigate(`/projects/${projectId}`);
   };
   const handleOpen = () => {
     dispatch(saveCurrentPole('list'));
@@ -119,6 +144,13 @@ function Project() {
         parentFunction={getInfo}
         handleClose={handleClose}
       />
+      {poleSerial && (
+        <ActionPoleModal
+          serial={poleSerial}
+          open={openActionPoleModal}
+          handleClose={handleActionClose}
+        />
+      )}
       {project && (
         <Box
           sx={{
