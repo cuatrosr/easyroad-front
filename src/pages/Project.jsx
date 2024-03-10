@@ -120,6 +120,7 @@ function Project() {
   const handleActionOpen = (serial) => {
     dispatch(saveCurrentActionPole('details'));
     setPoleSerial(serial);
+    navigate(`${serial}/details`);
     setOpenActionPoleModal(true);
   };
   const handleActionClose = () => {
