@@ -108,7 +108,7 @@ export default function AddPole() {
           <Box
             sx={{
               display: 'flex',
-              padding: '0.625rem 0.938rem',
+              padding: '0.225rem 0.938rem',
               flexDirection: 'column',
               alignItems: 'flex-start',
               alignSelf: 'stretch',
@@ -153,8 +153,9 @@ export default function AddPole() {
               sx={{ textAlign: 'justify' }}
               id="modal-modal-description"
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Le animamos a agregar nuevos postes a sus concesiones existentes.
+              Cada adición representa una oportunidad para fortalecer su red de
+              infraestructura y expandir su alcance.
             </Typography>
           </Box>
         </Box>

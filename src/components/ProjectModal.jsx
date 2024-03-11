@@ -123,9 +123,10 @@ export default function ProjectModal(props) {
           >
             Nuevo Proyecto
           </Typography>
-          <Typography id="modal-modal-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna.
+          <Typography id="modal-modal-description" textAlign={'justify'}>
+            Le invitamos a agregar nuevos proyectos de concesión para ampliar su
+            red de postes. Cada proyecto es una oportunidad para fortalecer su
+            infraestructura y mejorar sus servicios.
           </Typography>
         </Box>
         <Box

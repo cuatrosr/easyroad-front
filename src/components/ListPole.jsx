@@ -156,8 +156,10 @@ export default function ListPole() {
               sx={{ textAlign: 'justify' }}
               id="modal-modal-description"
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Le invitamos a explorar la lista de postes asociados a sus
+              concesiones. Cada poste representa un activo invaluable en su red
+              de infraestructura. Con nuestra plataforma, acceder a esta
+              información es sencillo y eficiente.
             </Typography>
           </Box>
           <Box

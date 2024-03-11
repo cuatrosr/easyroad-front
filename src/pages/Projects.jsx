@@ -97,11 +97,13 @@ function Projects() {
             <AddCircleOutlineOutlinedIcon />
           </IconButton>
         </Box>
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+        <Typography paragraph textAlign={'justify'}>
+          En este contexto, le invitamos a explorar el mundo de la creación de
+          proyectos personalizados, donde cada concesión representa una
+          oportunidad única para administrar eficientemente la infraestructura
+          de postes en su jurisdicción. Le damos la más cordial bienvenida al
+          mundo de la gestión de concesiones de infraestructura, donde sus
+          proyectos cobran vida con un propósito claro y definido.
         </Typography>
       </Box>
       <Grid container spacing={2}>
