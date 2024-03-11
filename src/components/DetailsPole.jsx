@@ -1,9 +1,9 @@
-import io from 'socket.io-client';
 import Ok from '../assets/ok.svg?react';
+import socket from '../configs/wsConfig';
 import { useState, useEffect } from 'react';
 import Info from '../assets/info.svg?react';
-import Alert from '../assets/alert.svg?react';
 import { useParams } from 'react-router-dom';
+import Alert from '../assets/alert.svg?react';
 import { axiosI } from '../configs/axiosConfig';
 import { useActionClose } from './ActionPoleModal';
 import { Box, Button, SvgIcon, Typography } from '@mui/material';
@@ -11,13 +11,10 @@ import { Box, Button, SvgIcon, Typography } from '@mui/material';
 export default function DetailsPole() {
   const { poleSerial } = useParams();
   const { handleCloseSocket } = useActionClose();
-  const socket = io('http://57.151.39.186:3600', {
-    reconnection: false,
-  });
   const [heartbeat, setHeartbeat] = useState();
   const [pole, setPole] = useState();
   const handleResolve = async () => {
-    const res = await axiosI.put(`/poles/${pole._id}`, {
+    const res = await axiosI.patch(`/poles/${pole._id}`, {
       state: 'ok',
     });
     setPole(res.data);
@@ -179,7 +176,7 @@ export default function DetailsPole() {
                   {heartbeat && heartbeat.contenido.voltaje_panel}
                   <br />
                   <strong>Porcentaje Bateria:</strong>{' '}
-                  {heartbeat && heartbeat.contenido.porcentaje_bateria && '%'}
+                  {heartbeat && heartbeat.contenido.porcentaje_bateria + '%'}
                   <br />
                   <strong>Estado Registro:</strong>{' '}
                   {heartbeat && heartbeat.contenido.estado_registro}
