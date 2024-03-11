@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { axiosI } from '../configs/axiosConfig';
@@ -32,7 +33,36 @@ export default function ListPole() {
   const [selectedRows, setSelectedRows] = useState([]);
   const { projectId } = useParams();
   const handleDelete = () => {
-    console.log(selectedRows);
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: 'No podras revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminalos!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const ids = selectedRows.map((row) => row.id);
+        const response = await axiosI.delete(
+          `/poles/delete?ids=${ids.join(',')}`,
+        );
+        if (response.status !== 200) {
+          Swal.fire({
+            title: 'Oops!',
+            text: response.data.message || 'Algo salio mal!',
+            icon: 'error',
+          });
+        } else {
+          Swal.fire({
+            title: 'Eliminado!',
+            text: 'Los postes fueron eliminados.',
+            icon: 'success',
+          });
+          getInfo();
+        }
+      }
+    });
   };
   const [project, setProject] = useState();
   const [poles, setPoles] = useState([]);
@@ -41,7 +71,15 @@ export default function ListPole() {
       const project = await axiosI.get(`/projects/${projectId}`);
       setProject(project.data);
       let poles = await axiosI.get(`/poles/project/${projectId}`);
-      poles = poles.data.map((pole) => {return {id: pole._id, serial: pole.serial, fabricante: pole.fabricante, modelo: pole.modelo, estado: pole.state}});
+      poles = poles.data.map((pole) => {
+        return {
+          id: pole._id,
+          serial: pole.serial,
+          fabricante: pole.fabricante,
+          modelo: pole.modelo,
+          estado: pole.state,
+        };
+      });
       setPoles(poles);
     } catch (e) {
       console.log(e);
@@ -49,7 +87,7 @@ export default function ListPole() {
   };
   useEffect(() => {
     getInfo();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Box component={'div'}>

@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
 import Ok from '../assets/ok.svg?react';
 import socket from '../configs/wsConfig';
@@ -29,6 +30,11 @@ export default function ActionsPole() {
       tipo_solicitud: text,
       valor_solicitud: '1',
       serial_dispositivo: poleSerial,
+    });
+    Swal.fire({
+      title: 'Enviando!',
+      text: 'Tu solicitud esta siendo enviada al poste.',
+      icon: 'success',
     });
   };
   const handleResolve = async () => {
