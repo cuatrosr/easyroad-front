@@ -6,6 +6,9 @@ ARG NPM_TOKEN
 
 FROM base AS build
 
+ENV VITE_URL_BACK_HTTP http://57.151.39.186:3500
+ENV VITE_URL_BACK_WS http://57.151.39.186:3600
+
 RUN apk update && apk add --no-cache dumb-init=1.2.5-r2
 
 COPY package.json pnpm-lock.yaml $DIR
@@ -28,5 +31,5 @@ WORKDIR /usr/share/nginx/html
 
 COPY --from=build /project/dist /usr/share/nginx/html
 
-EXPOSE 5173
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
