@@ -19,7 +19,7 @@ COPY public $DIR/public
 COPY src $DIR/src
 
 RUN pnpm run build && \
-  pnpm run prune --prod --config.ignore-scripts=true
+  pnpm prune --prod --config.ignore-scripts=true
 
 FROM base AS production
 
