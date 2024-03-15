@@ -24,14 +24,9 @@ RUN pnpm run build && \
 
 FROM nginx:alpine3.18 AS production
 
-ENV NODE_ENV=production
-ENV USER=node
+WORKDIR /usr/share/nginx/html
 
-COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
-COPY --from=build $DIR/dist/index.html /usr/share/nginx/html
-COPY --from=build $DIR/node_modules $DIR/node_modules
-COPY --from=build $DIR/dist $DIR/dist
+COPY --from=build /project/dist /usr/share/nginx/html
 
-USER $USER
 EXPOSE 5173
 CMD ["nginx", "-g", "daemon off;"]
