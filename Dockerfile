@@ -14,6 +14,7 @@ RUN echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > "$DIR/.npmrc" && \
   pnpm install --frozen-lockfile && \
   rm -f .npmrc
 
+COPY index.html $DIR
 COPY vite.config.js $DIR
 COPY public $DIR/public
 COPY src $DIR/src
