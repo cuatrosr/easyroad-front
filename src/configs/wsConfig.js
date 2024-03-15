@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const socket = io('http://57.151.39.186:3600', {
+const socket = io(import.meta.env.VITE_URL_BACK_WS, {
   reconnection: true,
 });
 

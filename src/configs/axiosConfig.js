@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseURL = `http://57.151.39.186:3500`;
+export const baseURL = import.meta.env.VITE_URL_BACK_HTTP;
 export const axiosI = axios.create({
   baseURL: baseURL,
 });
