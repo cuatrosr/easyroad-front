@@ -22,15 +22,16 @@ COPY src $DIR/src
 RUN pnpm run build && \
   pnpm prune --prod --config.ignore-scripts=true
 
-FROM base AS production
+FROM nginx:alpine3.18 AS production
 
 ENV NODE_ENV=production
 ENV USER=node
 
 COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
+COPY --from=build $DIR/dist/index.html /usr/share/nginx/html
 COPY --from=build $DIR/node_modules $DIR/node_modules
 COPY --from=build $DIR/dist $DIR/dist
 
 USER $USER
 EXPOSE 5173
-CMD ["dumb-init", "node", "dist/index.js"]
+CMD ["nginx", "-g", "daemon off;"]
